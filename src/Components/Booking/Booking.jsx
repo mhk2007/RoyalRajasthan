@@ -54,7 +54,7 @@ const Booking = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/booking", {
+      const res = await axios.post("https://royalrajasthan-6g4o.onrender.com/api/booking", {
         ...formData,
         tableType,
         amount,

@@ -51,7 +51,7 @@ const Cart = ({
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:5000/api/order",
+        "https://royalrajasthan-6g4o.onrender.com/api/order",
         {
           customerName,
           tableNumber,
