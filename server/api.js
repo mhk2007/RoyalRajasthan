@@ -7,6 +7,19 @@ import Order from "./models/Order.js";
 
 const app = express();
 
+import connectDB from "./connect.js";
+connectDB()
+  .then(() => {
+    console.log("Database  Connected byy mhk");
+
+    app.listen(5000, () => {
+      console.log("Server running on port 5000");
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 console.log("🔥 SERVER RUNNING");
 
 // ✅ Middleware
@@ -14,24 +27,22 @@ app.use(cors());
 app.use(express.json());
 
 // ✅ MongoDB Connect
-mongoose.connect(
-  "mongodb://127.0.0.1:27017/restaurantDB"
-)
+// mongoose.connect(
+//   "mongodb://127.0.0.1:27017/restaurantDB"
+// )
 
-.then(() =>
-  console.log("MongoDB Connected ✅")
-)
+// .then(() =>
+//   console.log("MongoDB Connected ✅")
+// )
 
-.catch((err) =>
-  console.log("Mongo Error ❌", err)
-);
+// .catch((err) =>
+//   console.log("Mongo Error ❌", err)
+// );
 
 // ✅ ROOT
 app.get("/", (req, res) => {
   res.send("API WORKING 🚀");
 });
-
-
 
 // ===================================================
 // ✅ BOOKING API
@@ -39,17 +50,10 @@ app.get("/", (req, res) => {
 
 // SAVE BOOKING
 app.post("/api/booking", async (req, res) => {
-
   try {
+    console.log("📩 Booking Data:", req.body);
 
-    console.log(
-      "📩 Booking Data:",
-      req.body
-    );
-
-    const booking = new Booking(
-      req.body
-    );
+    const booking = new Booking(req.body);
 
     await booking.save();
 
@@ -57,9 +61,7 @@ app.post("/api/booking", async (req, res) => {
       success: true,
       message: "Booking Saved",
     });
-
   } catch (error) {
-
     console.log(error);
 
     res.status(500).json({
@@ -71,23 +73,16 @@ app.post("/api/booking", async (req, res) => {
 
 // GET BOOKINGS
 app.get("/api/bookings", async (req, res) => {
-
   try {
-
-    const data = await Booking.find()
-      .sort({ createdAt: -1 });
+    const data = await Booking.find().sort({ createdAt: -1 });
 
     res.json(data);
-
   } catch (error) {
-
     res.status(500).json({
       error: "Failed to Fetch",
     });
   }
 });
-
-
 
 // ===================================================
 // ✅ FOOD ORDER API
@@ -95,26 +90,17 @@ app.get("/api/bookings", async (req, res) => {
 
 // SAVE ORDER
 app.post("/api/order", async (req, res) => {
-
   try {
-
-    console.log(
-      "🍽️ Order Data:",
-      req.body
-    );
+    console.log("🍽️ Order Data:", req.body);
 
     const order = new Order({
-      customerName:
-        req.body.customerName,
+      customerName: req.body.customerName,
 
-      tableNumber:
-        req.body.tableNumber,
+      tableNumber: req.body.tableNumber,
 
-      items:
-        req.body.items,
+      items: req.body.items,
 
-      totalPrice:
-        req.body.totalPrice,
+      totalPrice: req.body.totalPrice,
     });
 
     await order.save();
@@ -123,9 +109,7 @@ app.post("/api/order", async (req, res) => {
       success: true,
       message: "Order Placed Successfully",
     });
-
   } catch (error) {
-
     console.log(error);
 
     res.status(500).json({
@@ -137,33 +121,26 @@ app.post("/api/order", async (req, res) => {
 
 // GET ORDERS
 app.get("/api/orders", async (req, res) => {
-
   try {
-
-    const orders = await Order.find()
-      .sort({ createdAt: -1 });
+    const orders = await Order.find().sort({ createdAt: -1 });
 
     res.json(orders);
-
   } catch (error) {
-
     res.status(500).json({
       error: "Failed to Fetch Orders",
     });
   }
 });
 
-
-
 // ===================================================
 // ✅ SERVER START
 // ===================================================
 
-const PORT = 5000;
+// const PORT = 5000;
 
-app.listen(PORT, () => {
+// app.listen(PORT, () => {
 
-  console.log(
-    `🚀 Server running on http://localhost:${PORT}`
-  );
-});
+//   console.log(
+//     `🚀 Server running on http://localhost:${PORT}`
+//   );
+// });
