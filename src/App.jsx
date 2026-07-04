@@ -4,6 +4,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Link
 } from "react-router-dom";
 
 import Navbar from "./Components/Navbar";
@@ -37,12 +38,20 @@ function HomePage() {
           Discover Delicious Rajasthani Dishes
         </p>
 
-        <a
+        {/* <a
           href="/menu"
           className="bg-red-700 hover:bg-red-800 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl transition duration-300"
         >
           View Full Menu
-        </a>
+        </a> */}
+
+<Link
+  to="/menu"
+  className="bg-red-700 hover:bg-red-800 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl transition duration-300"
+>
+  View Full Menu
+</Link>
+
 
       </div>
 
