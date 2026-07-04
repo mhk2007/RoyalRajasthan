@@ -9,7 +9,8 @@ const About = () => {
         {/* Image */}
         <div>
           <img
-            src="public/about.jpg"
+            // src="public/about.jpg"
+            src="/about.jpg"
             alt="restaurant"
             className="rounded-2xl shadow-xl w-full h-[350px] object-cover"
           />
