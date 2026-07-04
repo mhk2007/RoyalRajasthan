@@ -82,13 +82,19 @@ const Cart = ({
   };
 
   // CLOSE POPUP
-  const closePopup = () => {
+  // const closePopup = () => {
 
-    setSuccessPopup(false);
+  //   setSuccessPopup(false);
 
-    window.location.reload();
-  };
+  //   window.location.reload();
+  // };
+// CLOSE POPUP
+const closePopup = () => {
 
+  setSuccessPopup(false);
+
+  window.location.href = "/";
+};
   return (
 
     <>
