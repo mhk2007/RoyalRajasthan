@@ -3,7 +3,7 @@ import { ShoppingCart } from "lucide-react";
 
 import MenuCard from "./MenuCard";
 import Cart from "./Cart";
-import menuData from "./MenuData";
+import menuData from "./menuData";
 
 const categories = [
   "All",
