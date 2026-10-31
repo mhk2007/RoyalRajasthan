@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { CircleAlert } from "lucide-react";
+import { apiUrl } from "../../api";
 
 const getAccountEmail = () => {
   try {
@@ -70,7 +71,7 @@ const Cart = ({
       setOrderError("");
 
       const response = await axios.post(
-        "https://royalrajasthan-6g4o.onrender.com/api/order",
+        apiUrl("/api/order"),
         {
           customerName,
           email: customerEmail.trim().toLowerCase(),

@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, Clock3, History as HistoryIcon, ShoppingBag, Trash2, Utensils } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL, apiUrl } from "../../api";
 import Navbar from "../Navbar";
 import "./history.css";
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function formatCreatedAt(value) {
   if (!value) return "Date unavailable";
@@ -50,7 +49,7 @@ export default function History() {
 
     async function loadHistory() {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/history`, {
+        const response = await fetch(apiUrl("/api/auth/history"), {
           headers: { Authorization: `Bearer ${token}` },
           cache: "no-store",
         });
@@ -139,7 +138,7 @@ export default function History() {
 
     try {
       const response = await fetch(
-        `${API_BASE_URL}/api/auth/history/${entry.entryType}/${entry._id}`,
+        apiUrl(`/api/auth/history/${entry.entryType}/${entry._id}`),
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },

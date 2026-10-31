@@ -9,9 +9,8 @@ import {
   UtensilsCrossed,
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { apiUrl } from "../../api";
 import "./login.css";
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -30,7 +29,7 @@ export default function Login() {
     const formData = new FormData(event.currentTarget);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      const response = await fetch(apiUrl("/api/auth/login"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -47,7 +46,7 @@ try {
   result = JSON.parse(responseText);
 } catch {
   throw new Error(
-    `Server se JSON ke badle HTML/text aaya. API URL check karo: ${API_BASE_URL}/api/auth/login`
+    "Server se JSON ke badle HTML/text aaya. Vercel mein VITE_API_URL check karo."
   );
 }
 

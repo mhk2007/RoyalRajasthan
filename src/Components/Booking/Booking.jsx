@@ -3,6 +3,7 @@ import axios from "axios";
 import TableSelection from "./TableSelection";
 import BookingForm from "./BookingForm";
 import qrImg from "../../assets/pay.png";
+import { apiUrl } from "../../api";
 
 const getAccountEmail = () => {
   try {
@@ -63,7 +64,7 @@ const Booking = () => {
     setError("");
 
     try {
-      const res = await axios.post("https://royalrajasthan-6g4o.onrender.com/api/booking", {
+      const res = await axios.post(apiUrl("/api/booking"), {
         ...formData,
         tableType,
         amount,
