@@ -2,18 +2,18 @@ import React from "react";
 
 function TableSelection({ setTableType }) {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4 sm:gap-6">
 
       {/* SIMPLE */}
-      <div className="bg-white/10 p-4 rounded-xl border border-white/20 hover:scale-105 transition">
+      <div className="rounded-xl border border-white/20 bg-white/10 p-3 transition sm:p-4 sm:hover:scale-105">
         <button
           onClick={() => setTableType("simple")}
-          className="w-full bg-white/20 text-white py-3 rounded border border-white/30 mb-3"
+          className="mb-2 w-full rounded border border-white/30 bg-white/20 py-2.5 text-sm text-white sm:mb-3 sm:py-3 sm:text-base"
         >
           🪑 Simple Table
         </button>
 
-        <ul className="text-white text-sm space-y-1">
+        <ul className="space-y-1 text-xs text-white sm:text-sm">
           <li>✔️ Normal seating</li>
           <li>✔️ Fan / basic cooling</li>
           <li>✔️ Standard service</li>
@@ -22,7 +22,7 @@ function TableSelection({ setTableType }) {
       </div>
 
       {/* ROYAL */}
-      <div className="relative bg-yellow-500/10 p-4 rounded-xl border border-yellow-400/40 hover:scale-105 transition shadow-lg shadow-yellow-500/30">
+      <div className="relative rounded-xl border border-yellow-400/40 bg-yellow-500/10 p-3 shadow-lg shadow-yellow-500/30 transition sm:p-4 sm:hover:scale-105">
         
         <span className="absolute -top-3 right-3 bg-yellow-400 text-black text-xs px-2 py-1 rounded-full font-bold">
           MOST POPULAR
@@ -30,12 +30,12 @@ function TableSelection({ setTableType }) {
 
         <button
           onClick={() => setTableType("royal")}
-          className="w-full bg-yellow-500 text-white py-3 rounded mb-3"
+          className="mb-2 w-full rounded bg-yellow-500 py-2.5 text-sm text-white sm:mb-3 sm:py-3 sm:text-base"
         >
           👑 Royal Table
         </button>
 
-        <ul className="text-white text-sm space-y-1">
+        <ul className="space-y-1 text-xs text-white sm:text-sm">
           <li>✨ Premium decoration</li>
           <li>❄️ AC seating</li>
           <li>🕯️ Candle light setup</li>

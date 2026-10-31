@@ -2,15 +2,15 @@ import React from "react";
 
 const Culture = () => {
   return (
-    <div className="py-16 px-6 bg-white">
+    <div className="bg-white px-6 py-10">
 
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 md:flex-row">
 
         {/* IMAGE */}
         <img
           src="/culture.png"
           alt="Rajasthani Culture"
-          className="w-full md:w-1/2 h-80 object-cover rounded-2xl shadow-lg"
+          className="h-auto w-full rounded-2xl shadow-lg md:w-1/2"
         />
 
         {/* TEXT */}

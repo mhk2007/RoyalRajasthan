@@ -23,3 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+
+node_modules/
+.env
+.env.*
+!.env.example
+server/.env

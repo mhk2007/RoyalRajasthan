@@ -15,7 +15,10 @@ import Booking from "./Components/Booking/Booking";
 import About from "./Components/About";
 import Footer from "./Components/Footer";
 
-import MenuPage from "./page2/MenuPage";
+import MenuPage from "./Components/Menu/MenuPage";
+import Login from "./Components/login/Login";
+import Signup from "./Components/login/Signup";
+import History from "./Components/history/History";
 
 function HomePage() {
 
@@ -28,7 +31,7 @@ function HomePage() {
       </div>
 
       {/* MENU SECTION */}
-      <div className="py-20 text-center bg-orange-50">
+      <div className="bg-orange-50 py-10 text-center md:py-14">
 
         <h2 className="text-5xl font-extrabold text-red-800 mb-6">
           🍽️ Explore Our Royal Menu
@@ -86,15 +89,21 @@ function App() {
 
       <Routes>
 
-        <Route
-          path="/"
-          element={<HomePage />}
-        />
+        <Route path="/" element={<Login />} />
+
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/signup" element={<Signup />} />
+
+        <Route path="/home" element={<HomePage />} />
+
+        <Route path="/history" element={<History />} />
 
         <Route
           path="/menu"
           element={<MenuPage />}
         />
+
 
       </Routes>
 

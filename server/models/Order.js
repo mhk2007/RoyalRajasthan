@@ -4,6 +4,8 @@ const orderSchema = new mongoose.Schema({
 
   customerName: String,
 
+  email: { type: String, required: true, trim: true, lowercase: true },
+
   tableNumber: String,
 
   items: Array,

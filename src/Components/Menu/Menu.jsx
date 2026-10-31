@@ -3,7 +3,7 @@ import { ShoppingCart } from "lucide-react";
 
 import MenuCard from "./MenuCard";
 import Cart from "./Cart";
-import menuData from "./menuData";
+import menuData from "./menuData.js";
 
 const categories = [
   "All",
@@ -192,7 +192,7 @@ const Menu = () => {
       </div>
 
       {/* MENU GRID */}
-      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
 
         {filteredDishes.length > 0 ? (
 

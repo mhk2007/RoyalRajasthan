@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { CircleAlert } from "lucide-react";
+
+const getAccountEmail = () => {
+  try {
+    return JSON.parse(sessionStorage.getItem("authUser") || "null")?.email || "";
+  } catch {
+    return "";
+  }
+};
 
 const Cart = ({
   cart,
@@ -11,6 +20,9 @@ const Cart = ({
   const [customerName, setCustomerName] =
     useState("");
 
+  const [customerEmail, setCustomerEmail] =
+    useState(getAccountEmail);
+
   const [tableNumber, setTableNumber] =
     useState("");
 
@@ -19,6 +31,9 @@ const Cart = ({
 
   const [successPopup, setSuccessPopup] =
     useState(false);
+
+  const [orderError, setOrderError] =
+    useState("");
 
   // TOTAL PRICE
   const totalPrice = cart.reduce(
@@ -30,12 +45,15 @@ const Cart = ({
   // PLACE ORDER
   const placeOrder = async () => {
 
-    if (!customerName || !tableNumber) {
+    if (!customerName || !customerEmail || !tableNumber) {
 
-      alert(
-        "Please Enter Name & Table"
-      );
+      alert("Please enter your name, email, and table.");
 
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail.trim())) {
+      alert("Please enter a valid email address.");
       return;
     }
 
@@ -49,14 +67,21 @@ const Cart = ({
     try {
 
       setLoading(true);
+      setOrderError("");
 
       const response = await axios.post(
         "https://royalrajasthan-6g4o.onrender.com/api/order",
         {
           customerName,
+          email: customerEmail.trim().toLowerCase(),
           tableNumber,
           items: cart,
           totalPrice,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken") || ""}`,
+          },
         }
       );
 
@@ -67,13 +92,17 @@ const Cart = ({
 
       // CLEAR INPUTS
       setCustomerName("");
+      setCustomerEmail(getAccountEmail());
       setTableNumber("");
 
     } catch (error) {
 
       console.log(error);
 
-      alert("Order Failed");
+      setOrderError(
+        error.response?.data?.message ||
+          "We couldn’t place your order just now. Please sign in and try again.",
+      );
 
     } finally {
 
@@ -119,6 +148,13 @@ const closePopup = () => {
             className="w-full border-2 border-red-200 rounded-xl px-4 py-3 outline-none focus:border-red-700"
           />
 
+          <input
+            type="email"
+            placeholder="Enter Your Email"
+            value={customerEmail}
+            onChange={(e) => setCustomerEmail(e.target.value)}
+            className="w-full border-2 border-red-200 rounded-xl px-4 py-3 outline-none focus:border-red-700"
+          />
           <select
             value={tableNumber}
             onChange={(e) =>
@@ -240,6 +276,20 @@ const closePopup = () => {
               <h2 className="text-2xl font-bold mb-4">
                 Total: ₹{totalPrice}
               </h2>
+
+              {orderError && (
+                <div
+                  className="mb-4 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-left text-sm leading-6 text-amber-950 shadow-sm"
+                  role="alert"
+                >
+                  <CircleAlert
+                    className="mt-1 shrink-0 text-amber-700"
+                    size={18}
+                    aria-hidden="true"
+                  />
+                  <p className="m-0">{orderError}</p>
+                </div>
+              )}
 
               {/* ORDER BUTTON */}
               <button

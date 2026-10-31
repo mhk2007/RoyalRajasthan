@@ -4,10 +4,19 @@ import TableSelection from "./TableSelection";
 import BookingForm from "./BookingForm";
 import qrImg from "../../assets/pay.png";
 
+const getAccountEmail = () => {
+  try {
+    return JSON.parse(sessionStorage.getItem("authUser") || "null")?.email || "";
+  } catch {
+    return "";
+  }
+};
+
 const Booking = () => {      
   const [tableType, setTableType] = useState("");
   const [formData, setFormData] = useState({
     name: "",
+    email: getAccountEmail(),
     date: "",
     time: "",
     guests: "",
@@ -32,7 +41,7 @@ const Booking = () => {
   };
 
   const handleProceed = () => {
-    if (!formData.name || !formData.mobile || !formData.date || !formData.time || !formData.guests) {
+    if (!formData.name || !formData.email || !formData.mobile || !formData.date || !formData.time || !formData.guests) {
       setError("Please fill all fields ⚠️");
       return;
     }
@@ -67,6 +76,7 @@ const Booking = () => {
 
         setFormData({
           name: "",
+          email: getAccountEmail(),
           date: "",
           time: "",
           guests: "",
@@ -89,14 +99,14 @@ const Booking = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
+      className="relative flex min-h-[80svh] items-center justify-center bg-cover bg-center sm:min-h-screen"
       style={{ backgroundImage: "url('/table.webp')" }}
     >
       <div className="absolute inset-0 bg-black/60"></div>
 
-      <div className="relative bg-white/10 backdrop-blur-lg shadow-2xl rounded-3xl p-8 w-full max-w-md border border-white/20">
+      <div className="relative mx-4 w-full max-w-[30rem] rounded-3xl border border-white/20 bg-white/10 p-5 shadow-2xl backdrop-blur-lg sm:p-8">
 
-        <h2 className="text-3xl font-bold text-center mb-6 text-yellow-400">
+        <h2 className="mb-4 text-center text-2xl font-bold text-yellow-400 sm:mb-6 sm:text-3xl">
           🍽️ Book a Table
         </h2>
 

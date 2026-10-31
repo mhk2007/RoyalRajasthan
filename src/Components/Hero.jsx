@@ -2,48 +2,38 @@ import React from "react";
 
 const Hero = () => {
 
-  const scrollToMenu = () => {
-
-    document
-      .getElementById("menu")
-      ?.scrollIntoView({
-        behavior: "smooth",
-      });
-
-  };
-
   return (
 
-    <div id="home"
-      className="h-screen bg-cover bg-center flex items-center justify-center text-white relative"
-      style={{
-        backgroundImage: "url('/hero.webp')",
-      }}
+    <div
+      id="home"
+      className="relative mt-16 w-full overflow-hidden text-white sm:mt-20"
     >
+
+      {/* BACKGROUND IMAGE */}
+      <img
+        src="/hero.webp"
+        alt="Royal Rajasthan"
+        className="block h-auto w-full"
+      />
 
       {/* OVERLAY */}
       <div className="absolute inset-0 bg-black/50"></div>
 
       {/* CONTENT */}
-      <div className="relative text-center px-6">
+      <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-6">
+        <div className="mx-auto w-full max-w-4xl text-center">
 
-        <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+        <h1 className="mb-4 text-4xl font-extrabold leading-tight sm:text-5xl md:mb-6 md:text-6xl lg:text-7xl">
           Taste the Royal Flavours
           <br />
           of Rajasthan
         </h1>
 
-        <p className="text-lg md:text-xl mb-6 text-gray-200">
+        <p className="mx-auto mb-6 max-w-xl text-base leading-relaxed text-gray-200 sm:text-lg md:mb-8 md:text-xl">
           Experience authentic Rajasthani food with royal hospitality
         </p>
 
-        <button
-          onClick={scrollToMenu}
-          className="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-full font-bold transition duration-300 shadow-lg"
-        >
-          Explore Menu
-        </button>
-
+        </div>
       </div>
 
     </div>

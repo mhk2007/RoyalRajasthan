@@ -2,9 +2,9 @@ import React from "react";
 
 const About = () => {
   return (
-    <div id="about" className="py-20 bg-gray-100">
+    <div id="about" className="bg-gray-100 py-12 md:py-16">
 
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+      <div className="mx-auto grid max-w-6xl items-center gap-8 px-6 md:grid-cols-2">
 
         {/* Image */}
         <div>
@@ -12,7 +12,7 @@ const About = () => {
             // src="public/about.jpg"
             src="/about.jpg"
             alt="restaurant"
-            className="rounded-2xl shadow-xl w-full h-[350px] object-cover"
+            className="h-[300px] w-full rounded-2xl object-cover shadow-xl"
           />
         </div>
 
