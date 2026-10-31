@@ -10,7 +10,7 @@ import {
   UtensilsCrossed,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { apiUrl } from "../../api";
+import { fetchApiJson } from "../../api";
 import "./login.css";
 
 export default function Signup() {
@@ -27,7 +27,7 @@ export default function Signup() {
     const formData = new FormData(event.currentTarget);
 
     try {
-      const response = await fetch(apiUrl("/api/auth/signup"), {
+      const { response, data: result } = await fetchApiJson("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -36,8 +36,6 @@ export default function Signup() {
           password: formData.get("password"),
         }),
       });
-      const result = await response.json();
-
       if (!response.ok) {
         throw new Error(result.message || "Could not create your account.");
       }

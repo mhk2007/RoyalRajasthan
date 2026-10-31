@@ -9,7 +9,7 @@ import {
   UtensilsCrossed,
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { apiUrl } from "../../api";
+import { fetchApiJson } from "../../api";
 import "./login.css";
 
 export default function Login() {
@@ -29,7 +29,7 @@ export default function Login() {
     const formData = new FormData(event.currentTarget);
 
     try {
-      const response = await fetch(apiUrl("/api/auth/login"), {
+      const { response, data: result } = await fetchApiJson("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -37,18 +37,6 @@ export default function Login() {
           password: formData.get("password"),
         }),
       });
-
-const responseText = await response.text();
-
-let result;
-
-try {
-  result = JSON.parse(responseText);
-} catch {
-  throw new Error(
-    "Server se JSON ke badle HTML/text aaya. Vercel mein VITE_API_URL check karo."
-  );
-}
 
 if (!response.ok) {
   throw new Error(result.message || "Could not sign in.");

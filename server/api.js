@@ -101,21 +101,20 @@ async function requireAuth(req, res, next) {
   }
 }
 
-connectDB()
-  .then(() => {
-    console.log("Database  Connected byy mhk");
-
-    app.listen(5000, () => {
-      console.log("Server running on port 5000");
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+app.use("/api", (req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({
+      success: false,
+      message: "The restaurant database is still connecting. Please try again shortly.",
+    });
+  }
+
+  return next();
+});
 
 // Root Route
 app.get("/", (req, res) => {
@@ -401,4 +400,14 @@ app.get("/api/orders", async (req, res) => {
       error: "Failed to Fetch Orders",
     });
   }
+});
+
+const PORT = Number(process.env.PORT) || 5000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server listening on port ${PORT}`);
+
+  connectDB().catch((error) => {
+    console.error("Database connection failed:", error.message);
+  });
 });

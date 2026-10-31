@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, Clock3, History as HistoryIcon, ShoppingBag, Trash2, Utensils } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL, apiUrl } from "../../api";
+import { fetchApiJson } from "../../api";
 import Navbar from "../Navbar";
 import "./history.css";
 
@@ -49,24 +49,10 @@ export default function History() {
 
     async function loadHistory() {
       try {
-        const response = await fetch(apiUrl("/api/auth/history"), {
+        const { response, data: result } = await fetchApiJson("/api/auth/history", {
           headers: { Authorization: `Bearer ${token}` },
           cache: "no-store",
         });
-        const contentType = response.headers.get("content-type") || "";
-        if (!contentType.includes("application/json")) {
-          if (response.status === 404) {
-            throw new Error(
-              "History API route nahi mila. Backend ko restart karo: server folder mein `npm start` chalao.",
-            );
-          }
-
-          throw new Error(
-            `History API ne HTML/text bheja (HTTP ${response.status}). API URL ${API_BASE_URL} check karo aur backend restart karo.`,
-          );
-        }
-
-        const result = await response.json();
 
         if (response.status === 401) {
           sessionStorage.removeItem("authToken");
@@ -137,8 +123,8 @@ export default function History() {
     setErrorMessage("");
 
     try {
-      const response = await fetch(
-        apiUrl(`/api/auth/history/${entry.entryType}/${entry._id}`),
+      const { response, data: result } = await fetchApiJson(
+        `/api/auth/history/${entry.entryType}/${entry._id}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
